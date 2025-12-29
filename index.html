@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fumo Delucia : Le spécialiste du fumage artisanal à Goma. Volaille, poisson et viandes fumés au bois naturel.">
+    <title>Fumo Delucia - Fumage Artisanal à Goma (Volaille, Poisson, Viande)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Icônes Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configuration Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        orange: {
+                            500: '#F97316',
+                            600: '#EA580C',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a0a; /* neutral-950 */
+            color: #d1d5db; /* gray-300 */
+        }
+        
+        /* Masquer la scrollbar tout en gardant le scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animations similaires à Framer Motion */
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.3s ease-out forwards;
+        }
+
+        .slide-out-right {
+            animation: slideOutRight 0.3s ease-in forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-orange-500 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/20">
+                    <i data-lucide="flame" class="text-black w-6 h-6 fill-current"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold text-white leading-tight">FUMO <span class="text-orange-500">DELUCIA</span></span>
+                    <span class="text-[10px] text-yellow-500 tracking-wider">PREMIUM SMOKED FOOD</span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="text-gray-300 hover:text-orange-500 transition-colors text-sm font-medium">ACCUEIL</a>
+                <a href="#products" class="text-gray-300 hover:text-orange-500 transition-colors text-sm font-medium">NOS PRODUITS</a>
+                <a href="#about" class="text-gray-300 hover:text-orange-500 transition-colors text-sm font-medium">VISION & MISSION</a>
+                <a href="#contact" class="text-gray-300 hover:text-orange-500 transition-colors text-sm font-medium">CONTACT</a>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart(true)" class="relative p-2 text-white hover:text-orange-500 transition-colors" aria-label="Ouvrir le panier">
+                    <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                    <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-yellow-500 text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">0</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white" aria-label="Menu">
+                    <i data-lucide="menu" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-neutral-900 border-t border-neutral-800 p-4 flex-col gap-4 shadow-xl overflow-hidden transition-all duration-300">
+            <a href="#home" onclick="toggleMobileMenu()" class="text-white hover:text-orange-500 py-2 transition-colors block">Accueil</a>
+            <a href="#products" onclick="toggleMobileMenu()" class="text-white hover:text-orange-500 py-2 transition-colors block">Produits</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="text-white hover:text-orange-500 py-2 transition-colors block">Vision & Mission</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="text-white hover:text-orange-500 py-2 transition-colors block">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=2000" 
+                 alt="Smoked meat background" 
+                 class="w-full h-full object-cover"
+                 onerror="this.src='https://placehold.co/2000x1200/1C1C1C/FFFFFF?text=FUMO+DELUCIA'">
+            <div class="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-900/70 to-neutral-950"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 mb-6 backdrop-blur-sm fade-in-up" style="animation-delay: 0.1s;">
+                <i data-lucide="flame" class="w-4 h-4"></i>
+                <span class="text-sm font-semibold tracking-wide uppercase">Fait main • Fumé local • Goût naturel</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight fade-in-up" style="animation-delay: 0.2s;">
+                Fumo Delucia : <br/>
+                Le goût du vrai fumé, <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-500">l’authenticité de Goma</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto font-light fade-in-up" style="animation-delay: 0.3s;">
+                Produits fumés authentiques, savoureux et durables. Sans additifs chimiques.
+                Soutenez les filières locales du Nord-Kivu.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up" style="animation-delay: 0.4s;">
+                <a href="#products" class="px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold transition-all transform hover:scale-105 shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2">
+                    Commander Maintenant
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#about" class="px-8 py-4 bg-transparent border border-white/20 text-white hover:bg-white/10 rounded-full font-bold transition-all flex items-center justify-center">
+                    Notre Concept
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="py-20 bg-neutral-900 border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Les features sont statiques ici pour l'HTML -->
+                <div class="bg-neutral-800/50 p-6 rounded-2xl hover:bg-neutral-800 transition-all border border-neutral-800 hover:border-orange-500/30 group">
+                    <div class="mb-4 bg-neutral-900 w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                        <i data-lucide="check-circle" class="w-8 h-8 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Hygiène Garantie</h3>
+                    <p class="text-gray-400 text-sm">Respect strict des normes sanitaires. Fumoirs modernes à double compartiment.</p>
+                </div>
+                <div class="bg-neutral-800/50 p-6 rounded-2xl hover:bg-neutral-800 transition-all border border-neutral-800 hover:border-orange-500/30 group">
+                    <div class="mb-4 bg-neutral-900 w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                        <i data-lucide="leaf" class="w-8 h-8 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">100% Naturel</h3>
+                    <p class="text-gray-400 text-sm">Bois de fumage : Essences naturelles (Mangue, Eucalyptus séché, Safou). Sans toxicité.</p>
+                </div>
+                <div class="bg-neutral-800/50 p-6 rounded-2xl hover:bg-neutral-800 transition-all border border-neutral-800 hover:border-orange-500/30 group">
+                    <div class="mb-4 bg-neutral-900 w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                        <i data-lucide="map-pin" class="w-8 h-8 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Approvisionnement Local</h3>
+                    <p class="text-gray-400 text-sm">Volaille : Goma, Munigi, Nyiragongo. Bouchers : Ndosho, Kituku, Birere.</p>
+                </div>
+                <div class="bg-neutral-800/50 p-6 rounded-2xl hover:bg-neutral-800 transition-all border border-neutral-800 hover:border-orange-500/30 group">
+                    <div class="mb-4 bg-neutral-900 w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                        <i data-lucide="truck" class="w-8 h-8 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Distribution</h3>
+                    <p class="text-gray-400 text-sm">Marchés de Goma (Birere, Katindo, Kyeshero). Expéditions Bukavu & Gisenyi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUITS SECTION -->
+    <section id="products" class="py-20 bg-neutral-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-orange-500 font-bold tracking-wider text-sm uppercase">Formats & Conditionnements variés</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">NOS PRODUITS PHARES</h2>
+                <div class="w-20 h-1 bg-orange-600 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Grille de produits générée par JS -->
+            <div id="products-grid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Contenu injecté via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 bg-neutral-900 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-orange-500 font-bold tracking-wider text-sm uppercase">Concept & Modèle</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">Entreprise Agroalimentaire Locale</h2>
+                
+                <div class="space-y-6 mb-8">
+                    <div class="bg-neutral-800/30 p-4 rounded-lg border-l-4 border-orange-500">
+                        <h3 class="text-white font-bold mb-2">Notre Vision</h3>
+                        <p class="text-gray-300 text-sm italic">
+                            "Faire de Fumo Delucia la marque de référence en matière de produits fumés premium à l’Est de la RDC."
+                        </p>
+                    </div>
+
+                    <div class="bg-neutral-800/30 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h3 class="text-white font-bold mb-2">Notre Mission</h3>
+                        <p class="text-gray-300 text-sm italic">
+                            "Valoriser les produits locaux (volaille, porc, poisson, bœuf) grâce à un savoir-faire artisanal moderne, garantissant qualité, hygiène et goût authentique."
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Nos Produits Phares (Détails)</h3>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><span class="font-bold text-orange-500">Volaille fumé :</span> cuisse de poulet, poulet entier (Sous-vide 250g, 500g, entier 1.5kg)</li>
+                        <li><span class="font-bold text-orange-500">Poisson fumé :</span> tilapia, Sambaza fumé, Capitaine (Emballages de 200g, 500g, 1kg)</li>
+                        <li><span class="font-bold text-orange-500">Bovin et ovin fumé :</span> Queue de vache, côtes fumées, langue ou tripes (Sachets de 250g à 1kg)</li>
+                        <li><span class="font-bold text-orange-500">Autres dérivés fumés</span></li>
+                    </ul>
+                </div>
+
+                <div class="mt-8 grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-2 text-gray-400 text-sm">
+                        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div> Identité "Made in Goma"
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-400 text-sm">
+                        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div> Savoir-faire traditionnel
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-400 text-sm">
+                        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div> Techniques modernes
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-400 text-sm">
+                        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div> Longue durée de conservation
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative mt-12 md:mt-0">
+                <div class="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-transparent rounded-2xl transform rotate-3"></div>
+                <img src="https://images.unsplash.com/photo-1524412529635-a258ed66c010?auto=format&fit=crop&q=80&w=1000" 
+                     alt="Chef smoking meat" 
+                     class="rounded-2xl shadow-2xl relative transform -rotate-3 hover:rotate-0 transition-transform duration-500 w-full object-cover h-[350px] md:h-[500px]"
+                     onerror="this.src='https://placehold.co/1000x500/171717/FFFFFF?text=FUMAGE+ARTISANAL'">
+                <div class="absolute bottom-6 right-6 bg-neutral-900/90 p-4 rounded-xl backdrop-blur-sm border border-orange-500/30 max-w-xs">
+                    <p class="text-orange-400 text-xs font-bold uppercase mb-1">Nos Bois de Fumage</p>
+                    <p class="text-white text-sm">Mangue, Eucalyptus séché & Safou pour des arômes doux et sans toxicité.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-neutral-950 text-white pt-20 pb-10 border-t border-neutral-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <i data-lucide="flame" class="text-orange-500 w-6 h-6"></i>
+                        <span class="text-xl font-bold">FUMO DELUCIA</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        L'authenticité de Goma. Spécialiste de la transformation et distribution de viandes et poissons fumés.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:bg-orange-600 hover:text-white transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-gray-400 hover:bg-orange-600 hover:text-white transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Points de Vente</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-orange-500 flex-shrink-0"></i>
+                            <span>Marché Birere</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-orange-500 flex-shrink-0"></i>
+                            <span>Marché Katindo</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-orange-500 flex-shrink-0"></i>
+                            <span>Marché Kyeshero</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Liens Rapides</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#home" class="hover:text-orange-500 transition-colors">Accueil</a></li>
+                        <li><a href="#products" class="hover:text-orange-500 transition-colors">Produits Phares</a></li>
+                        <li><a href="#about" class="hover:text-orange-500 transition-colors">Vision & Mission</a></li>
+                        <li><a href="#contact" class="hover:text-orange-500 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Contact & Livraison</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-orange-500 flex-shrink-0"></i>
+                            <span>+243 999 000 000</span>
+                        </li>
+                        <li class="text-xs text-gray-500 mt-2">
+                            Livraison sur commande.<br/>
+                            Expédition Gisenyi, Bukavu, Kisangani.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-900 pt-8 text-center text-gray-600 text-sm">
+                <p>&copy; 2024 Fumo Delucia. Made in Goma. Le goût du vrai fumé.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART MODAL / OVERLAY -->
+    <div id="cart-overlay" class="fixed inset-0 z-[60] hidden">
+        <!-- Backdrop -->
+        <div onclick="toggleCart(false)" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+        
+        <!-- Drawer -->
+        <div id="cart-drawer" class="absolute right-0 top-0 h-full w-full max-w-md bg-neutral-900 shadow-2xl p-6 flex flex-col transform translate-x-full transition-transform duration-300">
+            <div class="flex justify-between items-center mb-8 border-b border-neutral-800 pb-4">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i data-lucide="shopping-cart" class="text-orange-500"></i> Panier
+                </h2>
+                <button onclick="toggleCart(false)" class="text-gray-400 hover:text-white bg-neutral-800 p-2 rounded-full transition-colors"><i data-lucide="x"></i></button>
+            </div>
+
+            <!-- Items Container -->
+            <div id="cart-items-container" class="flex-grow overflow-y-auto space-y-4 no-scrollbar">
+                <!-- Injecté via JS -->
+            </div>
+
+            <!-- Footer du Panier -->
+            <div id="cart-footer" class="mt-6 border-t border-neutral-800 pt-6 flex-shrink-0 hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-400">Total estimé (Prix catalogue)</span>
+                    <span class="text-2xl font-bold text-white" id="cart-total">$0</span>
+                </div>
+                <button onclick="checkoutWhatsapp()" class="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01] shadow-lg shadow-green-600/30">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    Passer la commande via WhatsApp
+                </button>
+                <p class="text-center text-xs text-gray-500 mt-4">Nous vous recontacterons via WhatsApp pour confirmer les prix, le devis final et organiser la livraison.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIQUE JAVASCRIPT -->
+    <script>
+        // --- DONNÉES (Identiques au code React) ---
+        const PRODUCTS = [
+            {
+                id: 1,
+                name: "Volaille fumé",
+                category: "volaille",
+                price: 15,
+                unit: "Divers formats",
+                image: "téléchargement.jpg",
+                fallbackImage: "https://placehold.co/600x400/29160D/F59E0B?text=POULET+FUMÉ",
+                description: "Cuisse de poulet, poulet entier (Sous-vide 250g, 500g, entier 1.5kg).",
+                popular: true
+            },
+            {
+                id: 2,
+                name: "Poisson fumé",
+                category: "poisson",
+                price: 10,
+                unit: "Divers formats",
+                image: "images.jpg",
+                fallbackImage: "https://placehold.co/600x400/1D2C3D/3B82F6?text=POISSON+FUMÉ",
+                description: "Tilapia, Sambaza fumé, Capitaine (Emballages de 200g, 500g, 1kg).",
+                popular: true
+            },
+            {
+                id: 3,
+                name: "Bovin et Ovin fumé",
+                category: "viande",
+                price: 12,
+                unit: "Divers formats",
+                image: "poulet-1-1.jpg",
+                fallbackImage: "https://placehold.co/600x400/3A1A0D/D97706?text=VIANDE+FUMÉE",
+                description: "Queue de vache, côtes fumées, langue ou tripes (Sachets de 250g à 1kg).",
+                popular: true
+            }
+        ];
+
+        // --- ÉTAT ---
+        let cart = JSON.parse(localStorage.getItem('fumo-cart')) || [];
+
+        // --- INITIALISATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+            lucide.createIcons();
+
+            // Gestion du Scroll Navbar
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 20) {
+                    nav.classList.add('bg-neutral-900/95', 'backdrop-blur-md', 'shadow-lg', 'py-3');
+                    nav.classList.remove('py-5', 'bg-transparent');
+                } else {
+                    nav.classList.remove('bg-neutral-900/95', 'backdrop-blur-md', 'shadow-lg', 'py-3');
+                    nav.classList.add('py-5', 'bg-transparent');
+                }
+            });
+        });
+
+        // --- RENDU DES PRODUITS ---
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = PRODUCTS.map((product, index) => `
+                <div class="bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 group hover:border-orange-500/50 transition-all hover:shadow-xl hover:shadow-orange-500/10 flex flex-col fade-in-up" style="animation-delay: ${index * 0.15}s;">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="${product.image}" 
+                             alt="${product.name} - Fumo Delucia Goma" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.onerror=null;this.src='${product.fallbackImage}'">
+                        ${product.popular ? `
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
+                            <i data-lucide="star" class="w-3 h-3 fill-black"></i> Populaire
+                        </div>` : ''}
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-white">${product.name}</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">${product.description}</p>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-neutral-800">
+                            <div class="flex flex-col">
+                                <span class="text-xl font-bold text-orange-500">Sur devis</span>
+                                <span class="text-xs text-gray-500">${product.unit}</span>
+                            </div>
+                            <button onclick="addToCart(${product.id})" 
+                                    class="w-10 h-10 bg-white hover:bg-orange-500 hover:text-white rounded-full flex items-center justify-center transition-colors text-black transform hover:scale-110"
+                                    aria-label="Ajouter ${product.name} au panier">
+                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons(); // Re-scanner les icônes ajoutées dynamiquement
+        }
+
+        // --- GESTION DU PANIER ---
+        function addToCart(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            
+            saveCart();
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        function updateQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('fumo-cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            // Badge
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = totalQty;
+            if (totalQty > 0) badge.classList.remove('hidden');
+            else badge.classList.add('hidden');
+
+            // Items Liste
+            const container = document.getElementById('cart-items-container');
+            const footer = document.getElementById('cart-footer');
+            const totalEl = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-20 text-gray-500 flex flex-col items-center">
+                        <i data-lucide="shopping-bag" class="w-16 h-16 mb-4 opacity-20"></i>
+                        <p>Votre panier est vide.</p>
+                        <button onclick="toggleCart(false)" class="mt-4 text-orange-500 font-bold hover:underline">Voir les produits</button>
+                    </div>
+                `;
+                footer.classList.add('hidden');
+            } else {
+                footer.classList.remove('hidden');
+                let total = 0;
+                
+                container.innerHTML = cart.map(item => {
+                    total += item.price * item.qty;
+                    return `
+                        <div class="flex gap-4 bg-neutral-800/50 p-4 rounded-xl border border-neutral-800 slide-in-right">
+                            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg" onerror="this.src='${item.fallbackImage}'">
+                            <div class="flex-grow">
+                                <h4 class="text-white font-bold text-sm">${item.name}</h4>
+                                <p class="text-orange-500 text-sm font-semibold">$${item.price} (Prix ref.)</p>
+                                <p class="text-gray-500 text-xs">${item.unit}</p>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-neutral-700 text-white flex items-center justify-center hover:bg-orange-600 transition-colors">-</button>
+                                    <span class="text-white text-sm w-4 text-center">${item.qty}</span>
+                                    <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-neutral-700 text-white flex items-center justify-center hover:bg-orange-600 transition-colors">+</button>
+                                </div>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-red-500 self-start transition-colors">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+                
+                totalEl.innerText = `$${total}`;
+                lucide.createIcons();
+            }
+        }
+
+        // --- ACTIONS UI ---
+        function toggleCart(show) {
+            const overlay = document.getElementById('cart-overlay');
+            const drawer = document.getElementById('cart-drawer');
+            
+            if (show) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => drawer.classList.remove('translate-x-full'), 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+                document.body.style.overflow = 'unset';
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+
+        function checkoutWhatsapp() {
+            const whatsappNumber = "243990000000"; 
+            let total = 0;
+            let message = "Bonjour Fumo Delucia, je souhaite commander :\n\n";
+            
+            cart.forEach(item => {
+                message += `- ${item.name} | Qté: ${item.qty} (${item.unit})\n`;
+                total += item.price * item.qty;
+            });
+            
+            message += `\n*Total estimé (Prix catalogue) : $${total}*\n\nMerci de confirmer la disponibilité et le prix définitif pour la livraison sur Goma.`;
+            
+            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('App prête !'))
+        .catch(err => console.log('Erreur', err));
+    });
+  }
+</script>
+</body>
+</html>
