@@ -1,4 +1,4 @@
-const CACHE_NAME = 'version-1';
+const CACHE_NAME = 'version-2';
 const urlsToCache = [ 'index.html', 'manifest.json' ];
 
 // Installation du Service Worker
@@ -18,3 +18,4 @@ self.addEventListener('fetch', (event) => {
         })
     );
 });
+
